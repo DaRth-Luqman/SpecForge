@@ -100,7 +100,7 @@ export default function ResultsDashboard({ result, onReset }) {
           <motion.div variants={itemVariants} className="glass rounded-2xl overflow-hidden">
             <div className="p-4 border-b border-[var(--color-dark-border)] bg-amber-500/10 flex items-center gap-2">
               <AlertOctagon className="text-amber-400" size={18} />
-              <h3 className="font-semibold text-amber-400">Critical Pitfalls</h3>
+              <h3 className="font-semibold text-amber-400">Edge Case</h3>
             </div>
             <div className="p-4 bg-black/20">
               <ul className="space-y-3">

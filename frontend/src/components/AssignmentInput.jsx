@@ -136,6 +136,33 @@ export default function AssignmentInput({ onAnalyze, isAnalyzing }) {
           <p className="text-xs text-slate-500 max-w-md hidden md:block">
             SpecForge AI processes your requirements securely. Uploaded files are safely stored in your workspace.
           </p>
+          <div className="mb-6">
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Sample Assignments</p>
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setText("Design a multi-threaded system in C that avoids OS Deadlock using semaphores and mutexes. Explain the Banker's algorithm implementation.")}
+                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-white/10 hover:border-white/20 transition-all"
+              >
+                OS Deadlock
+              </button>
+              <button
+                type="button"
+                onClick={() => setText("Implement a Convolutional Neural Network (CNN) for MNIST digit classification using PyTorch. Focus on data normalization and overfitting prevention.")}
+                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-white/10 hover:border-white/20 transition-all"
+              >
+                AI Model
+              </button>
+              <button
+                type="button"
+                onClick={() => setText("Create a secure REST API using Node.js and Express with JWT authentication and RBAC.")}
+                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-white/10 hover:border-white/20 transition-all"
+              >
+                Secure API
+              </button>
+            </div>
+          </div>
+
           <button
             type="submit"
             disabled={isAnalyzing || (!text.trim() && !file)}
@@ -149,7 +176,7 @@ export default function AssignmentInput({ onAnalyze, isAnalyzing }) {
             ) : (
               <>
                 <Send size={18} />
-                Deconstruct
+                Generate
               </>
             )}
           </button>
