@@ -9,6 +9,7 @@ const AssignmentFileModel = (sequelize) => {
     file_name: DataTypes.STRING,
     file_type: DataTypes.STRING,
     mime_type: DataTypes.STRING,
+    file_url: DataTypes.STRING,
 
     created_at: {
       type: DataTypes.DATE,

@@ -4,24 +4,26 @@ import FeatureCards from './components/FeatureCards';
 import AssignmentInput from './components/AssignmentInput';
 import ResultsDashboard from './components/ResultsDashboard';
 import { motion } from 'framer-motion';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState('');
 
-  const handleAnalyze = async (assignmentText) => {
+  const handleAnalyze = async (dataPayload) => {
     setIsAnalyzing(true);
     setError('');
     setAnalysisResult(null);
 
     try {
-      const response = await fetch('http://localhost:5000/api/analyze', {
+      const formData = new FormData();
+      if (dataPayload.text) formData.append('prompt', dataPayload.text);
+      if (dataPayload.file) formData.append('file', dataPayload.file);
+
+      const response = await fetch('http://localhost:3000/api/analyze', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ assignmentText }),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -33,8 +35,12 @@ function App() {
         throw new Error(errMsg);
       }
 
-      const data = await response.json();
-      setAnalysisResult(data);
+      const responseData = await response.json();
+      if (responseData.success && responseData.data) {
+        setAnalysisResult(responseData.data);
+      } else {
+        throw new Error("Invalid response from backend.");
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -44,6 +50,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[var(--color-dark-bg)] text-slate-200 selection:bg-primary/30 font-sans custom-scrollbar">
+      <Toaster position="bottom-right" toastOptions={{
+        style: { background: '#1e293b', color: '#fff', border: '1px solid #334155' }
+      }} />
       {/* Background ambient glow */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px]" />

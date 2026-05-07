@@ -6,19 +6,20 @@ const client = new OpenAI({
 
 export const generateOpenAIResponse = async (prompt) => {
   const response = await client.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "gpt-4o",
     messages: [
       {
         role: "system",
         content:
-          "You are a senior software architecture mentor. Return ONLY valid JSON. No markdown.",
+          "You are a world-class Software Architect. You provide high-IQ, structured engineering plans. You must respond strictly in JSON format. Do not include markdown code blocks. Ensure all array fields are populated with deeply technical insights.",
       },
       {
         role: "user",
         content: prompt,
       },
     ],
-    temperature: 0.4,
+    response_format: { type: "json_object" },
+    temperature: 0.1,
   });
 
   return response.choices[0].message.content;
