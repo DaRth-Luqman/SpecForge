@@ -4,7 +4,24 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export const generateOpenAIResponse = async (prompt) => {
+export const generateOpenAIResponse = async (prompt, file = null) => {
+  const content = [
+    {
+      type: "text",
+      text: prompt,
+    },
+  ];
+
+  if (file && file.mimetype.startsWith("image")) {
+    const base64Image = file.buffer.toString("base64");
+    content.push({
+      type: "image_url",
+      image_url: {
+        url: `data:${file.mimetype};base64,${base64Image}`,
+      },
+    });
+  }
+
   const response = await client.chat.completions.create({
     model: "gpt-4o",
     messages: [
@@ -15,7 +32,7 @@ export const generateOpenAIResponse = async (prompt) => {
       },
       {
         role: "user",
-        content: prompt,
+        content: content,
       },
     ],
     response_format: { type: "json_object" },

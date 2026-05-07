@@ -1,5 +1,6 @@
 import db from "../models/Index.js";
 import { analyzeService } from "../services/analysis.service.js";
+import pdf from "pdf-parse/lib/pdf-parse.js";
 
 const { Assignment, AnalysisResult, AssignmentFile } = db;
 
@@ -23,7 +24,8 @@ export const analyzeController = async (req, res) => {
         if (file) {
             if (file.mimetype === "application/pdf") {
                 inputType = "pdf";
-                text += "\n[PDF uploaded - content not extracted]";
+                const pdfData = await pdf(file.buffer);
+                text += "\n[EXTRACTED PDF CONTENT]:\n" + pdfData.text;
             }
             if (file.mimetype.startsWith("image")) {
                 inputType = "image";

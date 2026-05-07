@@ -6,15 +6,8 @@ import cors from "cors";
 import sequelize from "./config/db.js";
 import analyzeRoutes from "./routes/analyze.routes.js";
 
-const app = express();
-const PORT = 3000;
-
-// Middlewares
-app.use(cors());
-app.use(express.json());
-
-// Routes
-app.use("/api", analyzeRoutes);
+import app from "./app.js";
+const PORT = process.env.PORT || 3000;
 
 // Start server
 const startServer = async () => {

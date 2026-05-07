@@ -10,4 +10,8 @@ app.use(express.json());
 
 app.use("/api", analyzeRoutes);
 
+app.get("/", (req, res) => {
+    res.send("SpecForge AI Backend is running!");
+});
+
 export default app;

@@ -4,13 +4,13 @@ import { parseResponse } from "../utils/responseParser.js";
 import { detectDomain } from "../utils/domainDetector.js";
 import { injectEdgeCases } from "../utils/edgeCaseInjector.js";
 
-export const analyzeService = async ({ text }) => {
+export const analyzeService = async ({ text, file }) => {
 
     const domain = detectDomain(text);
 
     const prompt = buildPrompt(text, domain);
 
-    const raw = await generateOpenAIResponse(prompt);
+    const raw = await generateOpenAIResponse(prompt, file);
 
     let parsed = parseResponse(raw);
 

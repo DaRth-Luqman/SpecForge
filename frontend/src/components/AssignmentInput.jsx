@@ -149,7 +149,7 @@ export default function AssignmentInput({ onAnalyze, isAnalyzing }) {
             ) : (
               <>
                 <Send size={18} />
-                Generate Plan
+                Deconstruct
               </>
             )}
           </button>

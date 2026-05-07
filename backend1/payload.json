@@ -1,0 +1,1 @@
+{"prompt": "Implement a B-Tree in C++ with support for insertion, deletion, and search. Ensure the tree remains balanced and handle edge cases like node splitting and merging."}
